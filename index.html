@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miller Wohnen GmbH – Diskreter Immobilienankauf</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #1c1c1c;
+    line-height: 1.7;
+    font-weight: 300;
+    background: #fafaf7;
+  }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 0.3px; }
+  /* Navigation */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 22px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100;
+    background: rgba(250, 250, 247, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6em; letter-spacing: 3px; font-weight: 500;
+    color: #1c1c1c;
+  }
+  .logo span { color: #b8925a; }
+  nav ul { display: flex; gap: 40px; list-style: none; }
+  nav a {
+    text-decoration: none; color: #1c1c1c;
+    font-size: 0.85em; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 400; transition: color 0.3s;
+  }
+  nav a:hover { color: #b8925a; }
+  /* Hero */
+  header {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1f2e 0%, #2a3142 60%, #1a1f2e 100%);
+    color: #f5f1e8;
+    display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    gap: 60px;
+    padding: 140px 80px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 30% 40%, rgba(184, 146, 90, 0.15) 0%, transparent 50%);
+  }
+  .hero-content { max-width: 640px; text-align: left; position: relative; z-index: 1; }
+  .hero-image {
+    position: relative; z-index: 1;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #2a3142 0%, #3a4456 100%);
+    border: 1px solid rgba(184, 146, 90, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-image .placeholder-inner {
+    padding: 40px;
+    color: rgba(212, 181, 132, 0.6);
+  }
+  .hero-image .placeholder-label {
+    font-size: 0.7em; letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 15px; font-weight: 500;
+  }
+  .hero-image .placeholder-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3em; font-style: italic; font-weight: 300;
+    line-height: 1.4;
+  }
+  @media (max-width: 900px) {
+    header { grid-template-columns: 1fr; padding: 120px 40px 60px; }
+    .hero-content { text-align: center; }
+    .hero-image { max-width: 400px; margin: 0 auto; width: 100%; }
+  }
+  .eyebrow {
+    font-size: 0.75em; letter-spacing: 6px; text-transform: uppercase;
+    color: #b8925a; margin-bottom: 30px; font-weight: 500;
+  }
+  header h1 {
+    font-size: 4.5em; line-height: 1.1; margin-bottom: 30px; font-weight: 300;
+    color: #f5f1e8;
+  }
+  header h1 em { font-style: italic; color: #d4b584; font-weight: 400; }
+  .hero-sub {
+    font-size: 1.15em; font-weight: 300; max-width: 620px; margin: 0 auto 50px;
+    opacity: 0.85; letter-spacing: 0.3px;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 18px 50px;
+    background: transparent;
+    color: #f5f1e8;
+    text-decoration: none;
+    border: 1px solid #b8925a;
+    font-size: 0.8em; letter-spacing: 3px; text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.4s ease;
+  }
+  .cta-btn:hover { background: #b8925a; color: #1a1f2e; }
+  /* Sections */
+  section { padding: 120px 40px; }
+  .container { max-width: 1180px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 0.75em; letter-spacing: 5px; text-transform: uppercase;
+    color: #b8925a; margin-bottom: 20px; text-align: center;
+    font-weight: 500;
+  }
+  .section-title {
+    font-size: 3em; text-align: center; margin-bottom: 80px;
+    line-height: 1.2;
+  }
+  .section-title em { font-style: italic; color: #b8925a; }
+  /* Portfolio-Grid */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px;
+    background: #e8e4d9;
+  }
+  .portfolio-item {
+    padding: 60px 40px;
+    background: #fafaf7;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .portfolio-item:hover { background: #f3efe4; }
+  .portfolio-item .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5em; color: #b8925a; font-style: italic;
+    font-weight: 300; display: block; margin-bottom: 15px;
+  }
+  .portfolio-item h3 { font-size: 1.7em; margin-bottom: 18px; }
+  .portfolio-item p { font-size: 0.95em; color: #555; line-height: 1.8; }
+  /* Vorteile – elegante Liste */
+  .benefits {
+    background: #1a1f2e; color: #f5f1e8;
+    padding: 120px 40px;
+  }
+  .benefits .section-title { color: #f5f1e8; }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 60px 80px;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .benefit-item { border-top: 1px solid rgba(184, 146, 90, 0.4); padding-top: 25px; }
+  .benefit-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5em; font-weight: 500; margin-bottom: 10px;
+    color: #d4b584;
+  }
+  .benefit-item p { font-size: 0.95em; opacity: 0.8; line-height: 1.8; }
+  /* Prozess – horizontale Timeline */
+  .process { background: #fafaf7; }
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+  }
+  .process-step { text-align: center; padding: 20px; }
+  .process-step .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4em; color: #b8925a; font-style: italic;
+    font-weight: 300; line-height: 1; margin-bottom: 20px;
+  }
+  .process-step h3 { font-size: 1.6em; margin-bottom: 15px; }
+  .process-step p { font-size: 0.95em; color: #555; }
+  /* Zitat – mit Porträt */
+  .quote {
+    background: #f3efe4; padding: 120px 40px;
+  }
+  .quote-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 320px 1fr;
+    gap: 80px; align-items: center;
+  }
+  .portrait-placeholder {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #e8e0d0 0%, #d4c9b3 100%);
+    border: 1px solid rgba(184, 146, 90, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .portrait-placeholder .placeholder-inner { padding: 30px; color: #8a7548; }
+  .portrait-placeholder .placeholder-label {
+    font-size: 0.7em; letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 12px; font-weight: 500;
+  }
+  .portrait-placeholder .placeholder-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2em; font-style: italic; line-height: 1.4;
+  }
+  .quote blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.3em; line-height: 1.4; font-style: italic;
+    font-weight: 300; color: #2a3142;
+  }
+  .quote cite {
+    display: block; margin-top: 30px; font-family: 'Inter', sans-serif;
+    font-size: 0.8em; letter-spacing: 4px; text-transform: uppercase;
+    font-style: normal; color: #b8925a; font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .quote-inner { grid-template-columns: 1fr; gap: 50px; text-align: center; }
+    .portrait-placeholder { max-width: 280px; margin: 0 auto; width: 100%; }
+  }
+  /* Kontakt */
+  .contact {
+    background: #1a1f2e; color: #f5f1e8;
+    text-align: center; padding: 120px 40px;
+  }
+  .contact .section-title { color: #f5f1e8; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 50px;
+    max-width: 900px; margin: 60px auto 0;
+    text-align: center;
+  }
+  .contact-block h4 {
+    font-size: 0.75em; letter-spacing: 4px; text-transform: uppercase;
+    color: #b8925a; margin-bottom: 20px; font-weight: 500;
+    font-family: 'Inter', sans-serif;
+  }
+  .contact-block p { font-size: 1.1em; line-height: 1.8; opacity: 0.9; }
+  .contact-block a { color: #d4b584; text-decoration: none; }
+  .contact-block a:hover { text-decoration: underline; }
+  /* Impressum */
+  .impressum {
+    background: #0f1420; color: #888;
+    padding: 80px 40px 40px;
+    font-size: 0.85em;
+  }
+  .impressum .container { max-width: 900px; }
+  .impressum h3 {
+    color: #d4b584; font-size: 1.3em; margin-bottom: 25px;
+    letter-spacing: 1px;
+  }
+  .impressum h4 {
+    color: #b8925a; font-size: 0.75em; letter-spacing: 3px;
+    text-transform: uppercase; margin: 25px 0 10px;
+    font-family: 'Inter', sans-serif; font-weight: 500;
+  }
+  .impressum p { line-height: 1.8; margin-bottom: 10px; }
+  .impressum a { color: #d4b584; text-decoration: none; }
+  footer {
+    background: #0a0e16; color: #555;
+    padding: 30px; text-align: center;
+    font-size: 0.8em; letter-spacing: 2px;
+  }
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 18px 25px; }
+    nav ul { display: none; }
+    header h1 { font-size: 2.8em; }
+    .section-title { font-size: 2.2em; margin-bottom: 50px; }
+    .quote blockquote { font-size: 1.5em; }
+    section { padding: 80px 25px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">MILLER <span>·</span> WOHNEN</div>
+  <ul>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#vorteile">Vorteile</a></li>
+    <li><a href="#prozess">Ablauf</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+<header>
+  <div class="hero-content">
+    <div class="eyebrow">Diskreter Immobilienankauf</div>
+    <h1>Ihre Immobilie. <em>Unser Anspruch.</em></h1>
+    <p class="hero-sub">Wir kaufen Wohnimmobilien in der Region Bonn und Rhein-Sieg-Kreis. Vertraulich, verbindlich und zu einem fairen Marktpreis – ohne Umwege, ohne Makler, ohne Aufsehen.</p>
+    <a href="#kontakt" class="cta-btn">Unverbindliche Bewertung</a>
+  </div>
+  <div class="hero-image">
+    <div class="placeholder-inner">
+      <div class="placeholder-label">Bild 1</div>
+      <div class="placeholder-desc">Action-Shot<br>auf der Baustelle</div>
+    </div>
+  </div>
+</header>
+<section id="portfolio">
+  <div class="container">
+    <div class="section-eyebrow">Unser Ankaufsprofil</div>
+    <h2 class="section-title">Was wir <em>erwerben</em></h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <span class="num">I</span>
+        <h3>Eigentumswohnungen</h3>
+        <p>Bestands- und Neubauwohnungen in guten Lagen – vermietet, leerstehend oder mit Renovierungsbedarf.</p>
+      </div>
+      <div class="portfolio-item">
+        <span class="num">II</span>
+        <h3>Mehrfamilienhäuser</h3>
+        <p>Zinshäuser und Bestandsobjekte ab drei Wohneinheiten, inklusive Mischnutzung und Entwicklungspotenzial.</p>
+      </div>
+      <div class="portfolio-item">
+        <span class="num">III</span>
+        <h3>Ein- & Zweifamilienhäuser</h3>
+        <p>Wohnhäuser in jeder Lage und jedem Zustand – auch im Kontext von Erbschaft, Trennung oder Umzug.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="benefits" id="vorteile">
+  <div class="container">
+    <div class="section-eyebrow" style="color: #b8925a;">Warum Miller Wohnen</div>
+    <h2 class="section-title">Verlässlich. <em>Vertraulich.</em> Vornehm.</h2>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <h4>Absolute Diskretion</h4>
+        <p>Kein Exposé, kein Online-Inserat, kein Besichtigungstourismus. Ihr Verkauf bleibt unter uns.</p>
+      </div>
+      <div class="benefit-item">
+        <h4>Direkter Ankauf</h4>
+        <p>Wir kaufen als Endinvestor – keine Maklerprovision, keine Zwischenhändler, keine Kettenabhängigkeit.</p>
+      </div>
+      <div class="benefit-item">
+        <h4>Schnelle Bewertung</h4>
+        <p>Innerhalb von 48 Stunden erhalten Sie eine fundierte Einschätzung und ein konkretes Ankaufsangebot.</p>
+      </div>
+      <div class="benefit-item">
+        <h4>Sichere Abwicklung</h4>
+        <p>Notarielle Beurkundung, verbindlicher Kaufpreis, zuverlässige Zahlung – ohne Finanzierungsvorbehalt.</p>
+      </div>
+      <div class="benefit-item">
+        <h4>Jeder Zustand willkommen</h4>
+        <p>Renovierungsbedarf, Leerstand, schwierige Mietverhältnisse – wir kaufen auch dort, wo andere zögern.</p>
+      </div>
+      <div class="benefit-item">
+        <h4>Persönliche Betreuung</h4>
+        <p>Kein Callcenter. Sie sprechen direkt mit der Inhaberin – auf Augenhöhe, mit Respekt und Erfahrung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="process" id="prozess">
+  <div class="container">
+    <div class="section-eyebrow">Der Ablauf</div>
+    <h2 class="section-title">In <em>drei Schritten</em> zum Abschluss</h2>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-num">i.</div>
+        <h3>Kontakt</h3>
+        <p>Sie nehmen mit uns Kontakt auf – telefonisch, per E-Mail oder persönlich. Wir besprechen die Eckdaten Ihrer Immobilie.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">ii.</div>
+        <h3>Angebot</h3>
+        <p>Innerhalb von 48 Stunden erhalten Sie eine fundierte Bewertung und ein verbindliches Ankaufsangebot.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">iii.</div>
+        <h3>Abschluss</h3>
+        <p>Nach Ihrer Zustimmung übernehmen wir die komplette Abwicklung bis zur notariellen Beurkundung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="quote">
+  <div class="quote-inner">
+    <div class="portrait-placeholder">
+      <div class="placeholder-inner">
+        <div class="placeholder-label">Bild 2</div>
+        <div class="placeholder-desc">Porträt<br>Michelle Miller</div>
+      </div>
+    </div>
+    <div>
+      <blockquote>
+        „Ein guter Verkauf beginnt mit Vertrauen – und endet mit einer Handschrift.&#8220;
+      </blockquote>
+      <cite>— Michelle Miller, Geschäftsführerin</cite>
+    </div>
+  </div>
+</section>
+<section class="contact" id="kontakt">
+  <div class="container">
+    <div class="section-eyebrow" style="color: #b8925a;">Kontakt</div>
+    <h2 class="section-title">Sprechen wir <em>miteinander</em></h2>
+    <p style="max-width: 600px; margin: 0 auto; opacity: 0.85;">Ob erste Fragen, konkrete Veräußerungsabsichten oder eine unverbindliche Einschätzung – wir freuen uns auf Ihre Nachricht.</p>
+    <div class="contact-grid">
+      <div class="contact-block">
+        <h4>Adresse</h4>
+        <p>Merler Ring 111<br>53340 Meckenheim</p>
+      </div>
+      <div class="contact-block">
+        <h4>E-Mail</h4>
+        <p><a href="mailto:michelle@millerwohnen.de">michelle@millerwohnen.de</a></p>
+      </div>
+      <div class="contact-block">
+        <h4>Ansprechpartnerin</h4>
+        <p>Michelle Miller<br>Geschäftsführerin</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="impressum" id="impressum">
+  <div class="container">
+    <h3>Impressum</h3>
+    <h4>Angaben gemäß § 5 TMG</h4>
+    <p>
+      Miller Wohnen GmbH<br>
+      Merler Ring 111<br>
+      53340 Meckenheim<br>
+      Deutschland
+    </p>
+    <h4>Vertreten durch</h4>
+    <p>Michelle Miller, Geschäftsführerin</p>
+    <h4>Kontakt</h4>
+    <p>
+      E-Mail: <a href="mailto:michelle@millerwohnen.de">michelle@millerwohnen.de</a>
+    </p>
+    <h4>Registereintrag</h4>
+    <p>
+      Eintragung im Handelsregister<br>
+      Registergericht: [ggf. ergänzen, z.B. Amtsgericht Bonn]<br>
+      Registernummer: [HRB-Nummer ergänzen]
+    </p>
+    <h4>Umsatzsteuer-ID</h4>
+    <p>
+      Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br>
+      [USt-IdNr. ergänzen]
+    </p>
+    <h4>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h4>
+    <p>Michelle Miller, Merler Ring 111, 53340 Meckenheim</p>
+    <h4>Streitschlichtung</h4>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank">https://ec.europa.eu/consumers/odr/</a>.<br>
+    Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+  </div>
+</section>
+<footer>
+  © 2026 MILLER WOHNEN GMBH
+</footer>
+</body>
+</html>
